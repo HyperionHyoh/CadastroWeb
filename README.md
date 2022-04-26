@@ -1,9 +1,12 @@
-# http-exercicios
+# CadastroWeb
 
 ## Project setup
+## Para instalar as depencencias utilize o comando a seguir
 ```
 npm install
 ```
+
+## Caso prefira utilizar sua propria base do firebase modifique a baseURL no arquivo axios.js.
 
 ### Compiles and hot-reloads for development
 ```
