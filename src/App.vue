@@ -25,7 +25,7 @@
 				<strong>E-mail: </strong>{{usuario.email}}<br>
 				<strong>ID: </strong>{{id}}<br>
 				<b-button variant="warning" size="lg" @click="carregar(id)">Carregar</b-button>
-				<b-button variant="danger" size="lg" class="ml-2" @click="excluir(id)">Excluir</b-button>
+				<b-button variant="danger" size="lg" class="ml-2" @click="excluir(id)" >Excluir</b-button>
 			</b-list-group-item>
 		</b-list-group>
 	</div>
@@ -58,28 +58,17 @@ export default {
 		excluir(id){
 			this.$http.delete(`/usuarios/${id}.json`).then(() => this.limpar(), this.mensagens.push({
 				texto:'Cadastro Excluído',
-				tipo:'warning'
-			}))
+				tipo:'warning',
+			
+			}), this.obterUsuarios())
+			//this.obterUsuarios()
 			.catch(err => {
 				this.mensagens.push({
 					texto: 'Problema ao excluir!',
 					tipo: 'danger'
 				})
 			})
-		},
-		salvar(){
-			const metodo = this.id ? 'patch' : 'post'
-			const finalUrl = this.id ? `/${this.id}.json` : '.json'
-			this.$http[metodo](`/usuarios${finalUrl}`, this.usuario)
-				.then(_ => {
-					this.limpar()
-					this.mensagens.push({
-						texto:'Cadastro realizado com sucesso',
-						tipo:'success'
-					})
-				})
-			/*this.$http.post('usuarios.json', this.usuario)
-				.then(() => this.limpar())*/
+			
 		},
 		obterUsuarios(){
 			this.$http.get('usuarios.json').then(res =>{
@@ -87,7 +76,24 @@ export default {
 				
 			})
 			
+		},
+		salvar(){
+			const metodo = this.id ? 'patch' : 'post'
+			const finalUrl = this.id ? `/${this.id}.json` : '.json'
+			this.$http[metodo](`/usuarios${finalUrl}`, this.usuario)
+				.then(_ => {
+					this.limpar()
+					this.obterUsuarios()
+					this.mensagens.push({
+						texto:'Cadastro realizado com sucesso',
+						tipo:'success'
+					})
+					
+				})
+			/*this.$http.post('usuarios.json', this.usuario)
+				.then(() => this.limpar())*/
 		}
+		
 	}
 	/*created(){
 		this.$http.post('usuarios.json',{
