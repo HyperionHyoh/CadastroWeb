@@ -50,6 +50,7 @@ export default {
 			this.usuario.email = ''
 			this.id = null
 			this.mensagens = []
+			this.obterUsuarios()
 		},
 		carregar(id){
 			this.id = id
@@ -60,7 +61,7 @@ export default {
 				texto:'Cadastro Excluído',
 				tipo:'warning',
 			
-			}), this.obterUsuarios())
+			}))
 			//this.obterUsuarios()
 			.catch(err => {
 				this.mensagens.push({
